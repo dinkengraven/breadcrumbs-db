@@ -32,6 +32,8 @@ gem 'json'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'puma'
+gem 'rails_12factor' # recommended by heroku
+ruby '2.2.1'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
