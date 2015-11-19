@@ -4,16 +4,14 @@ class BreadcrumbsController < ApplicationController
 
   def create
     breadcrumb = Breadcrumb.new(breadcrumb_params)
-    if breadcrumb.save
-      content_type :json
-      return {message: "successful breadCrumb creation"}.to_json
-    end
+    breadcrumb.save
   end
 
   def show
     breadcrumb = Breadcrumb.find(params[:id])
-    content_type :json
-    return {:breadcrumb => breadcrumb}.to_json
+    respond_to do |format|
+      return { render :json => { breadcrumb: breadcrumb } }
+    end
   end
 
   private
