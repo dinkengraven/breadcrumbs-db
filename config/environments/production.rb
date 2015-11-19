@@ -11,6 +11,8 @@ Rails.application.configure do
     }
   }
 
+  config.threadsafe!
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
