@@ -12,8 +12,9 @@ class UserController < ApplicationController
 
   def show
     user = User.find(params[:id])
-    content_type :json
-    return { user: {id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email} }.to_json
+    respond_to do |format|
+      format.json { render :json => user }
+    end
   end
 
   private
