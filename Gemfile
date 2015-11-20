@@ -30,7 +30,7 @@ gem 'bcrypt', '~> 3.1.7'
 # Gems added for breadCrumbs
 gem 'json'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 gem 'puma'
 gem 'rails_12factor' # recommended by heroku
 gem 'responders'
