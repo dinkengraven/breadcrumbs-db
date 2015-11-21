@@ -7,8 +7,8 @@ class PseudocrumbsController < ApplicationController
     pseudocrumb = Pseudocrumb.new(pseudocrumb_params)
     pseudocrumb.save
 
-    user.created_crumbs << pseudocrumb
-    user.received_crumbs << pseudocrumb
+    user.created_pseudocrumbs << pseudocrumb
+    user.received_pseudocrumbs << pseudocrumb
   end
 
   def show
