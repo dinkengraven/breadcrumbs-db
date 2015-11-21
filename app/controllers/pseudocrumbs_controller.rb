@@ -8,7 +8,7 @@ class PseudocrumbsController < ApplicationController
   end
 
   def return_all_for_user
-    pseudocrumbs = User.find_by(email: params[:email]).created_pseudocrumbs
+    pseudocrumbs = User.find_by(email: params[:creatorEmail]).created_pseudocrumbs
     respond_to do |format|
       format.json { render :json => pseudocrumbs }
     end
