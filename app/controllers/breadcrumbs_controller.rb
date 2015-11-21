@@ -21,6 +21,11 @@ class BreadcrumbsController < ApplicationController
     end
   end
 
+  def update
+    breadcrumb = Breadcrumb.find(params[:id])
+    breadcrumb.update_attribute(:found, true)
+  end
+
   private
     def breadcrumb_params
       params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found)
