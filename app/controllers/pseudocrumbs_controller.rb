@@ -4,11 +4,7 @@ class PseudocrumbsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    pseudocrumb = Pseudocrumb.new(pseudocrumb_params)
-    pseudocrumb.save
-
-    user.created_pseudocrumbs << pseudocrumb
-    user.received_pseudocrumbs << pseudocrumb
+    user.created_pseudocrumbs.create(pseudocrumb_params)
   end
 
   def show
