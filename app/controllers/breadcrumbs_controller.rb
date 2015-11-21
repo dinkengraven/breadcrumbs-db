@@ -7,6 +7,13 @@ class BreadcrumbsController < ApplicationController
     user.created_breadcrumbs.create(breadcrumb_params)
   end
 
+  def return_all_for_user
+    breadcrumbs = User.find_by(email: params[:creatorEmail]).created_breadcrumbs
+    respond_to do |format|
+      format.json { render :json => breadcrumbs }
+    end
+  end
+
   def show
     breadcrumb = Breadcrumb.find(params[:id])
     respond_to do |format|
