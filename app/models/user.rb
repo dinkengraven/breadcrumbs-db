@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :created_breadcrumbs, class_name: "Breadcrumb", foreign_key: :creator_id
   has_many :received_breadcrumbs, class_name: "Breadcrumb", foreign_key: :receiver_id
 
+  has_many :created_pseudocrumbs, class_name: "Pseudocrumb", foreign_key: :creator_id
+  has_many :received_pseudocrumbs, class_name: "Pseudocrumb", foreign_key: :receiver_id
+
   validates :first_name, { presence: true }
   validates :last_name, { presence: true }
   validates :email, { presence: true, uniqueness: true }
