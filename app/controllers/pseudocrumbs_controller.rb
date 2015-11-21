@@ -16,6 +16,6 @@ class PseudocrumbsController < ApplicationController
 
   private
     def pseudocrumb_params
-      params.require(:pseudocrumb).permit(:lat, :long, :identifier, :message)
+      params.require(:pseudocrumb).permit(:lat, :long, :identifier, :title, :subtitle)
     end
 end
