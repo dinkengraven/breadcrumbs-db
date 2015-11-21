@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   post "/login" => "sessions#create"
   get "/retrieve" => "pseudocrumbs#return_all_for_user"
+  get "/fetch" => "breadcrumbs#return_all_for_user"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
