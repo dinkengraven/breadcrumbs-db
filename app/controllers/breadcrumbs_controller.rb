@@ -3,8 +3,8 @@ class BreadcrumbsController < ApplicationController
   end
 
   def create
-    breadcrumb = Breadcrumb.new(breadcrumb_params)
-    breadcrumb.save
+    user = User.find_by(email: params[:breadcrumb][:creatorEmail])
+    user.created_breadcrumbs.create(breadcrumb_params)
   end
 
   def show
@@ -16,6 +16,6 @@ class BreadcrumbsController < ApplicationController
 
   private
     def breadcrumb_params
-      params.require(:breadcrumb).permit(:geolocation, :body, :path_to_photo, :found)
+      params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found)
     end
 end
