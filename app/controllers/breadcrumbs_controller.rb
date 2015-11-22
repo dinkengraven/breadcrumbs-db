@@ -1,6 +1,3 @@
-require 'stringio'
-require 'base64'
-
 class BreadcrumbsController < ApplicationController
   def new
   end
@@ -8,7 +5,7 @@ class BreadcrumbsController < ApplicationController
   def create
     user = User.find_by(email: params[:breadcrumb][:creatorEmail])
     breadcrumb = Breadcrumb.new(breadcrumb_params)
-    breadcrumb.photo = StringIO.new(Base64.decode64(params[:photo]))
+    # breadcrumb.photo = StringIO.new(Base64.decode64(params[:photo]))
     if breadcrumb.save
       user.created_breadcrumbs << breadcrumb
     end
@@ -35,6 +32,6 @@ class BreadcrumbsController < ApplicationController
 
   private
     def breadcrumb_params
-      params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found)
+      params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found, :image_data)
     end
 end
