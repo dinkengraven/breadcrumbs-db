@@ -8,11 +8,14 @@ class BreadcrumbsController < ApplicationController
     creator = User.find_by(email: params[:breadcrumb][:creatorEmail])
     breadcrumb = Breadcrumb.new(breadcrumb_params)
     breadcrumb.save
-
     creator.created_breadcrumbs << breadcrumb
 
-    receiver = User.find_by(email: params[:breadcrumb][:receiverEmail])
-    receiver.received_breadcrumbs << breadcrumb
+    if params[:breadcrumb][:creatorEmail]
+      receiver = User.find_by(email: params[:breadcrumb][:receiverEmail])
+      receiver.received_breadcrumbs << breadcrumb
+    else
+      creator.received_breadcrumbs << breadcrumb
+    end
   end
 
   def return_all_for_user
@@ -29,7 +32,7 @@ class BreadcrumbsController < ApplicationController
   end
 
   def update
-    breadcrumb.update_attribute(:found, true)
+    # breadcrumb.update_attribute(:found, true)
   end
 
   def destroy
