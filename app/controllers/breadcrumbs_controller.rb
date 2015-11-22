@@ -1,5 +1,6 @@
 class BreadcrumbsController < ApplicationController
   before_action :set_breadcrumb, only: [:show, :update, :destroy]
+  before_filter :restrict_access
 
   def new
   end
@@ -39,5 +40,10 @@ class BreadcrumbsController < ApplicationController
 
     def set_breadcrumb
       breadcrumb = Breadcrumb.find(params[:id])
+    end
+
+    def restrict_access
+      api_key = ApiKey.find_by(access_token: params[:access_token])
+      head :unauthorized unless api_key
     end
 end
