@@ -11,9 +11,6 @@ class Breadcrumb < ActiveRecord::Base
 
   def decode_image_data
     if self.image_data.present?
-      # If image_data is present, it means that we were sent an image over
-      # JSON and it needs to be decoded.  After decoding, the image is processed
-      # normally via Paperclip.
       if self.image_data.present?
         data = StringIO.new(Base64.decode64(self.image_data))
         data.class.class_eval {attr_accessor :original_filename, :content_type}

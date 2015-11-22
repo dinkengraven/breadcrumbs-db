@@ -5,7 +5,6 @@ class BreadcrumbsController < ApplicationController
   def create
     user = User.find_by(email: params[:breadcrumb][:creatorEmail])
     breadcrumb = Breadcrumb.new(breadcrumb_params)
-    # breadcrumb.photo = StringIO.new(Base64.decode64(params[:photo]))
     breadcrumb.save
     user.created_breadcrumbs << breadcrumb
   end
@@ -19,7 +18,6 @@ class BreadcrumbsController < ApplicationController
 
   def show
     breadcrumb = Breadcrumb.find(params[:id])
-
     respond_to do |format|
       format.json { render :json => {breadcrumb: breadcrumb} }
     end
