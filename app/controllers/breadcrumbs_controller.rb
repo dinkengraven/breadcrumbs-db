@@ -1,4 +1,6 @@
 class BreadcrumbsController < ApplicationController
+  before_action :set_breadcrumb, only: [:show, :update, :destroy]
+
   def new
   end
 
@@ -17,19 +19,25 @@ class BreadcrumbsController < ApplicationController
   end
 
   def show
-    breadcrumb = Breadcrumb.find(params[:id])
     respond_to do |format|
       format.json { render :json => {breadcrumb: breadcrumb} }
     end
   end
 
   def update
-    breadcrumb = Breadcrumb.find(params[:id])
     breadcrumb.update_attribute(:found, true)
+  end
+
+  def destroy
+    breadcrumb.destroy
   end
 
   private
     def breadcrumb_params
       params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found, :image_data)
+    end
+
+    def set_breadcrumb
+      breadcrumb = Breadcrumb.find(params[:id])
     end
 end
