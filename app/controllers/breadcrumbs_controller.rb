@@ -1,5 +1,5 @@
 class BreadcrumbsController < ApplicationController
-  before_action :set_breadcrumb, only: [:show, :update, :destroy]
+  before_action :set_breadcrumb, only: [:update, :destroy]
 
   def new
   end
@@ -10,8 +10,10 @@ class BreadcrumbsController < ApplicationController
     breadcrumb.save
     creator.created_breadcrumbs << breadcrumb
 
-    if params[:breadcrumb][:receiverEmail] || params[:breadcrumb][:receiverEmail] == ""
-      receiver = User.find_by(params[:breadcrumb][:receiverEmail])
+    receiver_email = params[:breadcrumb][:receiverEmail]
+
+    if receiver_email || receiver_email != ""
+      receiver = User.find_by(receiver_email)
       receiver.received_breadcrumbs << breadcrumb
     else
       creator.received_breadcrumbs << breadcrumb
@@ -45,6 +47,6 @@ class BreadcrumbsController < ApplicationController
     end
 
     def set_breadcrumb
-      breadcrumb = Breadcrumb.find(params[:id])
+      breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
     end
 end
