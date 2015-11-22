@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122004502) do
+ActiveRecord::Schema.define(version: 20151122190445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token", null: false
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "breadcrumbs", force: :cascade do |t|
     t.integer  "creator_id"
@@ -31,6 +38,7 @@ ActiveRecord::Schema.define(version: 20151122004502) do
     t.string   "title"
     t.string   "subtitle"
     t.string   "identifier"
+    t.string   "photo_aws_url"
   end
 
   create_table "friendships", force: :cascade do |t|
