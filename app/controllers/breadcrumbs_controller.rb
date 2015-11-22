@@ -10,11 +10,13 @@ class BreadcrumbsController < ApplicationController
     breadcrumb.save
     creator.created_breadcrumbs << breadcrumb
 
-    if params[:breadcrumb][:receiverEmail]
-      receiver = User.find_by(email: params[:breadcrumb][:receiverEmail])
-      receiver.received_breadcrumbs << breadcrumb
-    else
+    receiver_email = params[:breadcrumb][:receiverEmail]
+
+    if receiver_email == ""
       creator.received_breadcrumbs << breadcrumb
+    else
+      receiver = User.find_by(email: receiver_email)
+      receiver.received_breadcrumbs << breadcrumb
     end
   end
 
