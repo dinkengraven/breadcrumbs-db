@@ -7,8 +7,7 @@ class Breadcrumb < ActiveRecord::Base
 
   attr_accessor :image_data
 
-  before_save :decode_image_data
-  after_save :set_url_for_aws
+  before_save :decode_image_data, :set_url_for_aws
 
   def decode_image_data
     if self.image_data.present?
@@ -27,6 +26,7 @@ class Breadcrumb < ActiveRecord::Base
   end
 
   def set_url_for_aws
-    self.update_attribute(:photo_aws_url, self.photo.url)
+    self.photo_aws_url = self.photo.url
+    self.save
   end
 end
