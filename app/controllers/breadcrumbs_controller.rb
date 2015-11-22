@@ -21,7 +21,7 @@ class BreadcrumbsController < ApplicationController
   end
 
   def return_all_for_user
-    breadcrumbs = User.find_by(email: params[:creatorEmail]).created_breadcrumbs
+    breadcrumbs = User.find_by(email: params[:receiverEmail]).received_breadcrumbs
     respond_to do |format|
       format.json { render :json => breadcrumbs }
     end
