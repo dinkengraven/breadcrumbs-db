@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_one :api_key
+  has_one :api_key, class_name: "ApiKey"
 
   has_many :friendships
   has_many :friends, through: :friendships
@@ -18,4 +18,11 @@ class User < ActiveRecord::Base
   validates :password_digest, { presence: true }
 
   has_secure_password
+
+  after_save :set_api_key
+
+  private
+    def set_api_key
+      self.api_key = ApiKey.create
+    end
 end
