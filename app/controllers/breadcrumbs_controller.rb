@@ -1,10 +1,17 @@
+require 'stringio'
+require 'base64'
+
 class BreadcrumbsController < ApplicationController
   def new
   end
 
   def create
     user = User.find_by(email: params[:breadcrumb][:creatorEmail])
-    user.created_breadcrumbs.create(breadcrumb_params)
+    breadcrumb = Breadcrumb.new(breadcrumb_params)
+    breadcrumb.photo = StringIO.new(Base64.decode64(params[:photo]))
+    if breadcrumb.save
+      user.created_breadcrumbs << breadcrumb
+    end
   end
 
   def return_all_for_user

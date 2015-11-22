@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121200106) do
+ActiveRecord::Schema.define(version: 20151121215243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 20151121200106) do
   create_table "breadcrumbs", force: :cascade do |t|
     t.integer  "creator_id"
     t.integer  "receiver_id"
-    t.string   "geolocation"
-    t.text     "body"
     t.boolean  "found"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -28,6 +26,10 @@ ActiveRecord::Schema.define(version: 20151121200106) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.float    "lat"
+    t.float    "long"
+    t.string   "title"
+    t.string   "subtitle"
   end
 
   create_table "friendships", force: :cascade do |t|
