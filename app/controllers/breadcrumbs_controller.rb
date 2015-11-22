@@ -6,9 +6,8 @@ class BreadcrumbsController < ApplicationController
     user = User.find_by(email: params[:breadcrumb][:creatorEmail])
     breadcrumb = Breadcrumb.new(breadcrumb_params)
     # breadcrumb.photo = StringIO.new(Base64.decode64(params[:photo]))
-    if breadcrumb.save
-      user.created_breadcrumbs << breadcrumb
-    end
+    breadcrumb.save
+    user.created_breadcrumbs << breadcrumb
   end
 
   def return_all_for_user
