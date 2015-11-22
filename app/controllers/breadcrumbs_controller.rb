@@ -19,6 +19,7 @@ class BreadcrumbsController < ApplicationController
 
   def show
     breadcrumb = Breadcrumb.find(params[:id])
+
     respond_to do |format|
       format.json { render :json => {breadcrumb: breadcrumb} }
     end

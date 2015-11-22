@@ -8,6 +8,7 @@ class Breadcrumb < ActiveRecord::Base
   attr_accessor :image_data
 
   before_save :decode_image_data
+  after_save :set_url_for_aws
 
   def decode_image_data
     if self.image_data.present?
@@ -15,13 +16,17 @@ class Breadcrumb < ActiveRecord::Base
       # JSON and it needs to be decoded.  After decoding, the image is processed
       # normally via Paperclip.
       if self.image_data.present?
-          data = StringIO.new(Base64.decode64(self.image_data))
-          data.class.class_eval {attr_accessor :original_filename, :content_type}
-          data.original_filename = self.id.to_s + ".png"
-          data.content_type = "image/png"
+        data = StringIO.new(Base64.decode64(self.image_data))
+        data.class.class_eval {attr_accessor :original_filename, :content_type}
+        data.original_filename = self.id.to_s + ".png"
+        data.content_type = "image/png"
 
-          self.photo = data
+        self.photo = data
       end
     end
+  end
+
+  def set_url_for_aws
+    self.update_attribute(:photo_aws_url, self.photo.url)
   end
 end
