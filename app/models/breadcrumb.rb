@@ -27,6 +27,5 @@ class Breadcrumb < ActiveRecord::Base
 
   def set_url_for_aws
     self.photo_aws_url = self.photo.url
-    self.save
   end
 end
