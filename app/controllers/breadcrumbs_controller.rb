@@ -1,5 +1,5 @@
 class BreadcrumbsController < ApplicationController
-  before_action :set_breadcrumb, only: [:update, :destroy]
+  # before_action :set_breadcrumb, only: [:update, :destroy]
 
   def new
   end
@@ -38,6 +38,7 @@ class BreadcrumbsController < ApplicationController
   end
 
   def destroy
+    breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
     breadcrumb.destroy
   end
 
