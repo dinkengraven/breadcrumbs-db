@@ -10,7 +10,8 @@ class Breadcrumb < ActiveRecord::Base
 
   attr_accessor :image_data
 
-  before_save :decode_image_data, :set_url_for_aws, :set_creator_email
+  before_save :decode_image_data, :set_url_for_aws
+  after_save  :set_creator_email
 
   def decode_image_data
     if self.image_data.present?
@@ -30,6 +31,6 @@ class Breadcrumb < ActiveRecord::Base
   end
 
   def set_creator_email
-    self.creator_email = self.creator.email 
+    self.creator_email = self.creator.email
   end
 end
