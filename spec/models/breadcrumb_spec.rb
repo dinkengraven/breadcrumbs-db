@@ -5,6 +5,7 @@ RSpec.describe Breadcrumb, type: :model do
   describe "attributes" do
 
     before(:each) do
+      allow_any_instance_of(Paperclip::Attachment).to receive(:save).and_return(true)
       @crumb = build(:breadcrumb)
     end
 
@@ -28,7 +29,9 @@ RSpec.describe Breadcrumb, type: :model do
       expect(@crumb.identifier).to eq("44C8D038-7815-45D3-B3D2-40E1A6191C3B")
     end
 
-    
+    it "has a photo" do
+      expect(@crumb.photo_content_type).to eq('image/png')
+    end
 
     it "is valid with these attributes" do
       expect(@crumb.valid?).to be(true)
