@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20151123152047) do
 
   # These are extensions that must be enabled in order to support this database
@@ -40,10 +39,7 @@ ActiveRecord::Schema.define(version: 20151123152047) do
     t.string   "subtitle"
     t.string   "identifier"
     t.string   "photo_aws_url"
-<<<<<<< HEAD
-=======
     t.string   "creator_email"
->>>>>>> cb7c3254f12f21105cd18c28a58b991188274b1c
   end
 
   create_table "friendships", force: :cascade do |t|
