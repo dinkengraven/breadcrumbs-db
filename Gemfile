@@ -34,6 +34,7 @@ gem 'aws-sdk', '< 2.0'
 gem 'puma'
 gem 'rails_12factor' # recommended by heroku
 gem 'responders'
+
 ruby '2.2.1'
 
 # Use Capistrano for deployment
@@ -43,6 +44,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
 end
 
 group :development do
