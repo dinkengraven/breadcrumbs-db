@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :users
-  resources :breadcrumbs
+  resources :breadcrumbs, except: :destroy
   resources :pseudocrumbs
+
+  delete "/breadcrumbs/:identifier" => "breadcrumbs#destroy"
 
   post "/login" => "sessions#create"
   get "/retrieve" => "pseudocrumbs#return_all_for_user"

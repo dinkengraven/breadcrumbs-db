@@ -1,19 +1,28 @@
 class BreadcrumbsController < ApplicationController
-  before_action :set_breadcrumb, only: [:show, :update, :destroy]
+  # before_action :set_breadcrumb, only: [:update, :destroy]
   before_filter :restrict_access
 
   def new
   end
 
   def create
-    user = User.find_by(email: params[:breadcrumb][:creatorEmail])
+    creator = User.find_by(email: params[:breadcrumb][:creatorEmail])
     breadcrumb = Breadcrumb.new(breadcrumb_params)
     breadcrumb.save
-    user.created_breadcrumbs << breadcrumb
+    creator.created_breadcrumbs << breadcrumb
+
+    receiver_email = params[:breadcrumb][:receiverEmail]
+
+    if receiver_email == ""
+      creator.received_breadcrumbs << breadcrumb
+    else
+      receiver = User.find_by(email: receiver_email)
+      receiver.received_breadcrumbs << breadcrumb
+    end
   end
 
   def return_all_for_user
-    breadcrumbs = User.find_by(email: params[:creatorEmail]).created_breadcrumbs
+    breadcrumbs = User.find_by(email: params[:receiverEmail]).received_breadcrumbs
     respond_to do |format|
       format.json { render :json => breadcrumbs }
     end
@@ -26,10 +35,11 @@ class BreadcrumbsController < ApplicationController
   end
 
   def update
-    breadcrumb.update_attribute(:found, true)
+    # breadcrumb.update_attribute(:found, true)
   end
 
   def destroy
+    breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
     breadcrumb.destroy
   end
 
@@ -39,12 +49,10 @@ class BreadcrumbsController < ApplicationController
     end
 
     def set_breadcrumb
-      breadcrumb = Breadcrumb.find(params[:id])
+      breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
     end
 
     def restrict_access
-      # api_key = ApiKey.find_by(access_token: params[:access_token])
-      # head :unauthorized unless api_key
       authenticate_or_request_with_http_token do |token, options|
         ApiKey.exists?(access_token: token)
       end
