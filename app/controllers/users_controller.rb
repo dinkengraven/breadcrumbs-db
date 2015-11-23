@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def new
   end
 
@@ -10,7 +12,7 @@ class UsersController < ApplicationController
   def show
     user = User.find(params[:id])
     respond_to do |format|
-      format.json { render :json => {user: user.id} } 
+      format.json { render :json => {user: user.id} }
     end
   end
 
