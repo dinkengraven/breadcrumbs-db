@@ -10,6 +10,7 @@ class BreadcrumbsController < ApplicationController
     breadcrumb.save
     creator.created_breadcrumbs << breadcrumb
     breadcrumb.set_creator_email
+    
     receiver_email = params[:breadcrumb][:receiverEmail]
 
     if receiver_email == "" || receiver_email == nil
