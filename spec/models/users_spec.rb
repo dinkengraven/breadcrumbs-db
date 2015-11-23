@@ -40,7 +40,7 @@ RSpec.describe User, :type => :model do
       expect(user.valid?).to be(false)
     end
 
-    it "is invalid without a password_digest" do
+    it "will not save a user without a password_digest" do
       user = User.create(first_name: "Bernard", last_name: "Jones", email: "jones@email.com", password: nil)
       expect(user.save).to be(false)
     end
@@ -68,7 +68,7 @@ RSpec.describe User, :type => :model do
     let!(:user_2) { User.create(first_name: "Reginald", last_name: "Stone", email: "reginald@email.com", password: "password") }
 
     it "can create breadcrumbs" do
-      breadcrumb = Breadcrumb.create(body: "Hello!", found: false)
+      breadcrumb = Breadcrumb.create()
 
       user_1.created_breadcrumbs << breadcrumb
 
@@ -76,7 +76,7 @@ RSpec.describe User, :type => :model do
     end
 
     it "has received breadcrumbs" do
-      breadcrumb = Breadcrumb.create(body: "Hey Geraldine", found: false)
+      breadcrumb = Breadcrumb.create()
 
       user_2.received_breadcrumbs << breadcrumb
 
