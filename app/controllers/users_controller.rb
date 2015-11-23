@@ -4,13 +4,18 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.save
+    if user.save
+      render json: {
+        status: 200,
+        message: "Successfully registered."
+      }.to_json
+    end
   end
 
   def show
     user = User.find(params[:id])
     respond_to do |format|
-      format.json { render :json => {user: user.id} } 
+      format.json { render :json => {user: user.id} }
     end
   end
 
