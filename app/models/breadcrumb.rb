@@ -4,7 +4,7 @@ require 'base64'
 class Breadcrumb < ActiveRecord::Base
   belongs_to :creator, class_name: "User"
   belongs_to :receiver, class_name: "User"
-  
+
   has_attached_file :photo, :storage => :s3, :bucket => 'breadcrumbs-assets'
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
@@ -27,5 +27,9 @@ class Breadcrumb < ActiveRecord::Base
 
   def set_url_for_aws
     self.photo_aws_url = self.photo.url
+  end
+
+  def set_creator_email
+    self.creator_email = self.creator.email
   end
 end

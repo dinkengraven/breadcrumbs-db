@@ -6,7 +6,11 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-    user.save
+    if user.save
+      render status: 200, json: {
+        message: "Successfully registered."
+      }.to_json
+    end
   end
 
   def show

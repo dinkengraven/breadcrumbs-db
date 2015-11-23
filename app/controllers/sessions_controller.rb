@@ -1,15 +1,16 @@
 class SessionsController < ApplicationController
   respond_to :json
-  
+
   def new
   end
 
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
-      respond_with do |format|
-        format.json { render :json => user }
-      end
+      render json: {
+        status: 200,
+        message: "Successfully logged in"
+      }.to_json
     end
   end
 
