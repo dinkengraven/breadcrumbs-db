@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :first_name, { presence: true }
   validates :last_name, { presence: true }
   validates :email, { presence: true, uniqueness: true }
+  validates_format_of :email, with: /\A[[-._]0-9a-zA-Z]{3,}@[a-z]{2,}.[a-z]{2,}\z/i
   validates :password_digest, { presence: true }
 
   has_secure_password
