@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       render status: 200, json: {
         message: "Successfully logged in.",
         api_key: user.api_key.access_token,
-        first_name: user.first_name
+        first_name: user.first_name.upcase
       }.to_json
     end
   end
