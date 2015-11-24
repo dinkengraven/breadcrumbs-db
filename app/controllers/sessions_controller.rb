@@ -10,7 +10,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       render status: 200, json: {
         message: "Successfully logged in.",
-        api_key: user.api_key.access_token
+        api_key: user.api_key.access_token,
+        first_name: user.first_name
       }.to_json
     end
   end
