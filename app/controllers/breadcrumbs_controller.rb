@@ -1,5 +1,6 @@
 class BreadcrumbsController < ApplicationController
   # before_action :set_breadcrumb, only: [:update, :destroy]
+  before_filter :restrict_access
 
   def new
   end
@@ -10,7 +11,7 @@ class BreadcrumbsController < ApplicationController
     breadcrumb.save
     creator.created_breadcrumbs << breadcrumb
     breadcrumb.set_creator_email
-    
+
     receiver_email = params[:breadcrumb][:receiverEmail]
 
     if receiver_email == "" || receiver_email == nil
@@ -50,5 +51,11 @@ class BreadcrumbsController < ApplicationController
 
     def set_breadcrumb
       breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
+    end
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        ApiKey.exists?(access_token: token)
+      end
     end
 end

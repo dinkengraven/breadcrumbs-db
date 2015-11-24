@@ -1,4 +1,6 @@
 class PseudocrumbsController < ApplicationController
+  before_filter :restrict_access
+
   def new
   end
 
@@ -29,5 +31,11 @@ class PseudocrumbsController < ApplicationController
   private
     def pseudocrumb_params
       params.require(:pseudocrumb).permit(:lat, :long, :identifier, :title, :subtitle)
+    end
+
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        ApiKey.exists?(access_token: token)
+      end
     end
 end
