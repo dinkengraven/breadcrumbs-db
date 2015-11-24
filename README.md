@@ -1,6 +1,9 @@
 ## breadCrumbs
 *And Hansel said to Gretel, 'Let us drop these bread crumbs so that together we find our way home…'*
 
+![Main map](/breadCrumbs-photos/IMG_2378.JPG)
+![New crumb](/breadCrumbs-photos/IMG_2383.JPG)
+
 **Note**: This repo is for the breadCrumbs backend server and database. There is a [separate repo](https://github.com/Salt7900/breadcrumbs) for its frontend work, written in Swift.
 
 breadCrumbs is a Dev Bootcamp Phase 3 final project by three students from the 2015 Chicago Purple Martins. It was created over a period of 8 days in November 2015.
