@@ -13,16 +13,14 @@ class Breadcrumb < ActiveRecord::Base
   before_save :decode_image_data, :set_url_for_aws
 
   def decode_image_data
-    # if self.image_data.present?
-      if self.image_data.present?
-        data = StringIO.new(Base64.decode64(self.image_data))
-        data.class.class_eval {attr_accessor :original_filename, :content_type}
-        data.original_filename = self.id.to_s + ".png"
-        data.content_type = "image/png"
+    if self.image_data.present?
+      data = StringIO.new(Base64.decode64(self.image_data))
+      data.class.class_eval {attr_accessor :original_filename, :content_type}
+      data.original_filename = self.id.to_s + ".png"
+      data.content_type = "image/png"
 
-        self.photo = data
-      end
-    # end
+      self.photo = data
+    end
   end
 
   def set_url_for_aws

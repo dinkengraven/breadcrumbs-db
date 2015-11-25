@@ -1,5 +1,4 @@
 class BreadcrumbsController < ApplicationController
-  # before_action :set_breadcrumb, only: [:update, :destroy]
   before_filter :restrict_access
 
   def new
@@ -36,7 +35,6 @@ class BreadcrumbsController < ApplicationController
   end
 
   def update
-    # breadcrumb.update_attribute(:found, true)
   end
 
   def destroy
@@ -47,10 +45,6 @@ class BreadcrumbsController < ApplicationController
   private
     def breadcrumb_params
       params.require(:breadcrumb).permit(:lat, :long, :title, :subtitle, :identifier, :photo, :found, :image_data)
-    end
-
-    def set_breadcrumb
-      breadcrumb = Breadcrumb.find_by(identifier: params[:identifier])
     end
 
     def restrict_access
